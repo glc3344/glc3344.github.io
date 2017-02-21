@@ -1,101 +1,41 @@
-function initMap() {
-  var uluru = {lat: 41.421270, lng: -73.106616};
-  var map = new google.maps.Map(document.getElementById('map'), {
-    zoom: 15,
-    center: uluru,
-    styles: [
-            {elementType: 'geometry', stylers: [{color: '#242f3e'}]},
-            {elementType: 'labels.text.stroke', stylers: [{color: '#242f3e'}]},
-            {elementType: 'labels.text.fill', stylers: [{color: '#746855'}]},
-            {
-              featureType: 'administrative.locality',
-              elementType: 'labels.text.fill',
-              stylers: [{color: '#d59563'}]
-            },
-            {
-              featureType: 'poi',
-              elementType: 'labels.text.fill',
-              stylers: [{color: '#d59563'}]
-            },
-            {
-              featureType: 'poi.park',
-              elementType: 'geometry',
-              stylers: [{color: '#263c3f'}]
-            },
-            {
-              featureType: 'poi.park',
-              elementType: 'labels.text.fill',
-              stylers: [{color: '#6b9a76'}]
-            },
-            {
-              featureType: 'road',
-              elementType: 'geometry',
-              stylers: [{color: '#38414e'}]
-            },
-            {
-              featureType: 'road',
-              elementType: 'geometry.stroke',
-              stylers: [{color: '#212a37'}]
-            },
-            {
-              featureType: 'road',
-              elementType: 'labels.text.fill',
-              stylers: [{color: '#9ca5b3'}]
-            },
-            {
-              featureType: 'road.highway',
-              elementType: 'geometry',
-              stylers: [{color: '#746855'}]
-            },
-            {
-              featureType: 'road.highway',
-              elementType: 'geometry.stroke',
-              stylers: [{color: '#1f2835'}]
-            },
-            {
-              featureType: 'road.highway',
-              elementType: 'labels.text.fill',
-              stylers: [{color: '#f3d19c'}]
-            },
-            {
-              featureType: 'transit',
-              elementType: 'geometry',
-              stylers: [{color: '#2f3948'}]
-            },
-            {
-              featureType: 'transit.station',
-              elementType: 'labels.text.fill',
-              stylers: [{color: '#d59563'}]
-            },
-            {
-              featureType: 'water',
-              elementType: 'geometry',
-              stylers: [{color: '#17263c'}]
-            },
-            {
-              featureType: 'water',
-              elementType: 'labels.text.fill',
-              stylers: [{color: '#515c6d'}]
-            },
-            {
-              featureType: 'water',
-              elementType: 'labels.text.stroke',
-              stylers: [{color: '#17263c'}]
-            }
-          ]
-  });
-  // ADD A MARKER
-  // var marker = new google.maps.Marker({
-  //   position: uluru,
-  //   map: map
-  // });
-}
+"use strict";
 
-// This is a simple *viewmodel* - JavaScript that defines the data and behavior of your UI
-function AppViewModel() {
-    this.firstName = "Bert";
-    this.lastName = "Bertington";
-}
+///////////////////
+//   BREWERIES   //
+///////////////////
 
-// Activates knockout.js
-ko.applyBindings(new AppViewModel());
+var breweries = [
+    {
+        name: 'Black Hog Brewing Co',
+        address: '9A, 115 Hurley Rd, Oxford, CT 06478',
+        latLng: {lat: 41.476293, lng: -73.151555}
+    },
+    {
+        name: 'New England Brewing Company',
+        address: '175 Amity Rd, Woodbridge, CT 06525',
+        latLng: {lat: 41.339608, lng: -72.980850}
+    }
+];
+
+
+///////////////////
+//  GOOGLE MAPS  //
+///////////////////
+
+
+var ViewModel = function () {
+    var self = this;
+
+        self.googleMap = new google.maps.Map(document.getElementById('map'), {
+            center: {lat: 41.339608, lng: -72.980850},
+            zoom: 12,
+            styles: [{"stylers": [{"hue": "#ff1a00"}, {"invert_lightness": true}, {"saturation": -100}, {"lightness": 33}, {"gamma": 0.6}]}, {
+                "featureType": "water",
+                "elementType": "geometry",
+                "stylers": [{"color": "#2D333C"}]
+            }]
+        });
+};
+
+ko.applyBindings(new ViewModel());
+
