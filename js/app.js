@@ -74,32 +74,56 @@ var ViewModel = function () {
     // BREWERIES
     self.allBreweries = ko.observableArray([]);
     breweries.forEach(function (brewery) {
-        self.allBreweries.push(new Brewery(brewery));
+        self.allBreweries.push(brewery);
     });
 
     // MARKERS
     self.allBreweries().forEach(function (brewery) {
         var markerOptions = {
             map: self.googleMap,
-            position: brewery.latLng(),
-            animation: google.maps.Animation.DROP,
+            position: brewery.latLng,
+            animation: google.maps.Animation.DROP
         };
 
         brewery.marker = new google.maps.Marker(markerOptions);
     });
 
-    // Filter array for visible breweries
-    self.visibleBreweries = ko.observableArray();
+    // define filter array
+    self.visibleBreweries = ko.observableArray([]);
 
-    // Unfiltered array initially
-    breweries.forEach(function (brewery) {
-        self.visibleBreweries.push(new Brewery(brewery));
+    // Setup array unfiltered initially
+    self.allBreweries().forEach(function (brewery) {
+        self.visibleBreweries.push(brewery);
     });
 
+    // KO observable on search box
+    self.searchBox = ko.observable('');
 
+    // Filtered Markers
+    self.filterMarkers = function () {
+        var searchInput = self.searchBox().toLowerCase();
 
+        self.visibleBreweries.removeAll();
 
+        self.allBreweries().forEach(function (brewery) {
+            brewery.marker.setVisible(false);
 
+            if (brewery.name.toLowerCase().indexOf(searchInput) !== -1) {
+                self.visibleBreweries.push(brewery);
+            }
+        });
+
+        self.visibleBreweries().forEach(function (brewery) {
+            brewery.marker.setVisible(true);
+        });
+    };
+
+    function Brewery(dataObj) {
+        this.name = dataObj.name;
+        this.latLng = dataObj.latLng;
+
+        this.marker = null;
+    }
 };
 
 ko.applyBindings(new ViewModel());

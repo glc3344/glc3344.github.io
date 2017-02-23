@@ -19,3 +19,18 @@ html, body {
     border-right: solid #454545;
     border-right-width: 1px;
 }
+
+#searchBar {
+    margin-bottom: 30px;
+    margin-top: 10px;
+    margin-left: 25px;
+    margin-right: auto;
+    width: 80%;
+    border-radius: 5px;
+}
+
+input[type="search"] {
+    padding-left: 10px;
+    font-size: 15px;
+    height: 40px;
+}

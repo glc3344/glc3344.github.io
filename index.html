@@ -11,6 +11,9 @@
 
 <div id="sidebar">
     <h1 style="text-align: center">Breweries:</h1>
+    <input type="search" id="searchBar" placeholder="Filter Breweries..."
+           data-bind="textInput: searchBox, event: {keyup: filterMarkers}">
+
     <ul data-bind="foreach: visibleBreweries">
         <li data-bind="text: name" style="font-weight: bold"></li>
         <li data-bind="text: address"></li>
@@ -30,3 +33,4 @@
 </html>
 
 
+<!--data-bind="textInput: userInput, event: {keyup: filterMarkers}"-->
