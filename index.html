@@ -6,13 +6,16 @@
     <link rel='stylesheet' type='text/css' href='css/style.css'>
 
 
-
-
 </head>
 <body>
 
 <div id="sidebar">
-<h1 style="text-align: center">Breweries:</h1>
+    <h1 style="text-align: center">Breweries:</h1>
+    <ul data-bind="foreach: visibleBreweries">
+        <li data-bind="text: name" style="font-weight: bold"></li>
+        <li data-bind="text: address"></li>
+        <br>
+    </ul>
 
 </div>
 

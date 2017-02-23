@@ -1,7 +1,7 @@
 "use strict";
 
-  ///////////////////
- //   BREWERIES   //
+///////////////////
+//   BREWERIES   //
 ///////////////////
 
 var breweries = [
@@ -28,23 +28,22 @@ var breweries = [
     {
         name: 'No Worries Brewing Company',
         address: '2520 State St, Hamden, CT 06517',
-        latLng: {lat: 41.349989, lng:  -72.892873}
+        latLng: {lat: 41.349989, lng: -72.892873}
     },
     {
         name: 'Two Roads Brewing Company',
         address: '1700 Stratford Ave, Stratford, CT 06615',
-        latLng: {lat: 41.186259, lng:  -73.142184}
+        latLng: {lat: 41.186259, lng: -73.142184}
     },
     {
         name: 'SBC Brewery & Restaurant',
         address: '33 New Haven Ave, Milford, CT 06460',
-        latLng: {lat: 41.222610, lng:  -73.055755}
+        latLng: {lat: 41.222610, lng: -73.055755}
     }
 ];
 
 
-
-var Brewery = function(data) {
+var Brewery = function (data) {
     "use strict";
     this.name = ko.observable(data.name);
     this.address = ko.observable(data.address);
@@ -54,10 +53,8 @@ var Brewery = function(data) {
 };
 
 
-
-
-  //////////////////
- //  VIEW MODEL  //
+//////////////////
+//  VIEW MODEL  //
 //////////////////
 
 var ViewModel = function () {
@@ -76,19 +73,32 @@ var ViewModel = function () {
 
     // BREWERIES
     self.allBreweries = ko.observableArray([]);
-    breweries.forEach(function(brewery) {
+    breweries.forEach(function (brewery) {
         self.allBreweries.push(new Brewery(brewery));
     });
 
     // MARKERS
-    self.allBreweries().forEach(function(brewery) {
+    self.allBreweries().forEach(function (brewery) {
         var markerOptions = {
             map: self.googleMap,
-            position: brewery.latLng()
+            position: brewery.latLng(),
+            animation: google.maps.Animation.DROP,
         };
 
         brewery.marker = new google.maps.Marker(markerOptions);
     });
+
+    // Filter array for visible breweries
+    self.visibleBreweries = ko.observableArray();
+
+    // Unfiltered array initially
+    breweries.forEach(function (brewery) {
+        self.visibleBreweries.push(new Brewery(brewery));
+    });
+
+
+
+
 
 };
 
