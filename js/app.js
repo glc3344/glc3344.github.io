@@ -67,7 +67,7 @@ var ViewModel = function () {
     // GOOGLE MAPS OBJECT
     self.googleMap = new google.maps.Map(document.getElementById('map'), {
         center: {lat: 41.348209, lng: -73.078189},
-        zoom: 11,
+        zoom: 10,
         styles: [{"stylers": [{"hue": "#ff1a00"}, {"invert_lightness": true}, {"saturation": -100}, {"lightness": 33}, {"gamma": 0.6}]}, {
             "featureType": "water",
             "elementType": "geometry",
@@ -89,11 +89,13 @@ var ViewModel = function () {
             animation: google.maps.Animation.DROP
         };
 
-
         brewery.marker = new google.maps.Marker(markerOptions);
+
+        // ON CLICK EVENT LISTENER
         brewery.marker.addListener('click', function () {
             infowindow.open(map, brewery.marker);
-            infowindow.setContent('<h3 id="contenth3">' + brewery.name + '</h3>' + brewery.address);
+            infowindow.setContent('<h3 id="contentH3">' + brewery.name + '</h3>' + brewery.address);
+            self.googleMap.panTo(brewery.latLng);
         });
     });
 
