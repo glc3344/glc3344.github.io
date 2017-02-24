@@ -1,8 +1,12 @@
 "use strict";
 
+// GLOBAL INFOWINDOW
+var infowindow = new google.maps.InfoWindow();
+
 ///////////////////
 //   BREWERIES   //
 ///////////////////
+
 
 var breweries = [
     {
@@ -85,8 +89,14 @@ var ViewModel = function () {
             animation: google.maps.Animation.DROP
         };
 
+
         brewery.marker = new google.maps.Marker(markerOptions);
+        brewery.marker.addListener('click', function () {
+            infowindow.open(map, brewery.marker);
+            infowindow.setContent('<h3 id="contenth3">' + brewery.name + '</h3>' + brewery.address);
+        });
     });
+
 
     // define filter array
     self.visibleBreweries = ko.observableArray([]);
@@ -109,6 +119,9 @@ var ViewModel = function () {
             brewery.marker.setVisible(false);
 
             if (brewery.name.toLowerCase().indexOf(searchInput) !== -1) {
+                self.visibleBreweries.push(brewery);
+            }
+            else if (brewery.address.toLowerCase().indexOf(searchInput) !== -1) {
                 self.visibleBreweries.push(brewery);
             }
         });
