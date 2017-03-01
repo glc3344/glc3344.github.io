@@ -92,17 +92,24 @@ var ViewModel = function () {
 
         brewery.marker = new google.maps.Marker(markerOptions);
 
+
         // ON CLICK EVENT LISTENER
         brewery.marker.addListener('click', function () {
             infowindow.open(map, brewery.marker);
             infowindow.setContent('<h3 id="contentH3">' + brewery.name + '</h3>' + brewery.address);
             self.googleMap.panTo(brewery.latLng);
-            if (currentMarker) currentMarker.setAnimation(null);
+            // Stop bounce on next click
+            if (currentMarker) currentMarker.setAnimation(google.maps.Animation.NONE);
             currentMarker = brewery.marker;
             brewery.marker.setAnimation(google.maps.Animation.BOUNCE);
         });
-        
+
     });
+
+    // Activate the appropriate marker when the user clicks a list item
+    self.showInfo = function (brewery) {
+        google.maps.event.trigger(brewery.marker, 'click');
+    };
 
 
     // define filter array
@@ -127,14 +134,20 @@ var ViewModel = function () {
 
             if (brewery.name.toLowerCase().indexOf(searchInput) !== -1) {
                 self.visibleBreweries.push(brewery);
+                brewery.marker.setAnimation(google.maps.Animation.BOUNCE);
             }
             else if (brewery.address.toLowerCase().indexOf(searchInput) !== -1) {
                 self.visibleBreweries.push(brewery);
+                brewery.marker.setAnimation(google.maps.Animation.BOUNCE);
+            }
+            if (searchInput === '') {
+                brewery.marker.setAnimation(google.maps.Animation.DROP);
             }
         });
 
         self.visibleBreweries().forEach(function (brewery) {
             brewery.marker.setVisible(true);
+
         });
     };
 

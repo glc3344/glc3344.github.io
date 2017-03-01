@@ -15,8 +15,8 @@
            data-bind="textInput: searchBox, event: {keyup: filterMarkers}">
 
     <ul data-bind="foreach: visibleBreweries">
-        <li data-bind="text: name" style="font-weight: bold"></li>
-        <li data-bind="text: address"></li>
+        <li data-bind="text: name, click: $parent.showInfo" style="font-weight: bold"></li>
+        <li data-bind="text: address, click: $parent.showInfo"></li>
         <br>
     </ul>
 
