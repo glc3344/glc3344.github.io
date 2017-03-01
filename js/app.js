@@ -2,6 +2,7 @@
 
 // GLOBAL INFOWINDOW
 var infowindow = new google.maps.InfoWindow();
+var currentMarker = null;
 
 ///////////////////
 //   BREWERIES   //
@@ -96,7 +97,11 @@ var ViewModel = function () {
             infowindow.open(map, brewery.marker);
             infowindow.setContent('<h3 id="contentH3">' + brewery.name + '</h3>' + brewery.address);
             self.googleMap.panTo(brewery.latLng);
+            if (currentMarker) currentMarker.setAnimation(null);
+            currentMarker = brewery.marker;
+            brewery.marker.setAnimation(google.maps.Animation.BOUNCE);
         });
+        
     });
 
 
