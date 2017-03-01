@@ -98,6 +98,7 @@ var ViewModel = function () {
             infowindow.open(map, brewery.marker);
             infowindow.setContent('<h3 id="contentH3">' + brewery.name + '</h3>' + brewery.address);
             self.googleMap.panTo(brewery.latLng);
+            self.getYelpData(brewery);
             // Stop bounce on next click
             if (currentMarker) currentMarker.setAnimation(google.maps.Animation.NONE);
             currentMarker = brewery.marker;
@@ -106,11 +107,11 @@ var ViewModel = function () {
 
     });
 
-    // Activate the appropriate marker when the user clicks a list item
+
+    // Activate the marker when the user clicks list item
     self.showInfo = function (brewery) {
         google.maps.event.trigger(brewery.marker, 'click');
     };
-
 
     // define filter array
     self.visibleBreweries = ko.observableArray([]);
@@ -143,13 +144,87 @@ var ViewModel = function () {
             if (searchInput === '') {
                 brewery.marker.setAnimation(google.maps.Animation.DROP);
             }
+
         });
 
         self.visibleBreweries().forEach(function (brewery) {
             brewery.marker.setVisible(true);
-
         });
     };
+
+
+
+
+    self.getYelpData = function(brewery) {
+        // Uses the oauth-signature package installed with bower per https://github.com/bettiolo/oauth-signature-js
+
+        // Use the GET method for the request
+        var httpMethod = 'GET';
+
+        // Yelp API request url
+        var yelpURL = 'http://api.yelp.com/v2/search/';
+
+        // nonce generator
+        // function credit of: https://blog.nraboy.com/2015/03/create-a-random-nonce-string-using-javascript/
+        var nonce = function(length) {
+            var text = "";
+            var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+            for(var i = 0; i < length; i++) {
+                text += possible.charAt(Math.floor(Math.random() * possible.length));
+            }
+            return text;
+        };
+
+        // Set required parameters for authentication & search
+        var parameters = {
+            oauth_consumer_key: 'dOyPnZY_mXZTjUUkqzFFjw',
+            oauth_token: 'tBUBtvPYtujkQf_KH1TFguMsOyvtDXj7',
+            oauth_nonce: nonce(20),
+            oauth_timestamp: Math.floor(Date.now() / 1000),
+            oauth_signature_method: 'HMAC-SHA1',
+            oauth_version: '1.0',
+            callback: 'cb',
+            term: brewery.name,
+            location: 'Connecticut',
+            limit: 1
+        };
+
+        // Set other API parameters
+        var consumerSecret = 'Eg64L8QZK_txeNxDs-RJ7SfVzpM';
+        var tokenSecret = 'cuHdcWEfG71oBHQbWpue4QaeASY';
+
+        // generates a RFC 3986 encoded, BASE64 encoded HMAC-SHA1 hash
+        var signature = oauthSignature.generate(httpMethod, yelpURL, parameters, consumerSecret, tokenSecret);
+
+        // Add signature to list of parameters
+        parameters.oauth_signature = signature;
+
+        // Set up the ajax settings
+        var ajaxSettings = {
+            url: yelpURL,
+            data: parameters,
+            cache: true,
+            dataType: 'jsonp',
+            success: function(response) {
+                // Update the infoWindow to display the yelp rating image
+                $('#yelp').attr("src", response.businesses[0].rating_img_url);
+                $('#yelp-url').attr("href", response.businesses[0].url);
+            },
+            error: function() {
+                $('#text').html('Data could not be retrieved from yelp.');
+            }
+        };
+
+        // Send off the ajaz request to Yelp
+        $.ajax(ajaxSettings);
+    };
+
+    // Add the listener for loading the page
+    google.maps.event.addDomListener(window, 'load', function() {
+        self.allBreweries();
+        self.showInfo();
+        self.visibleBreweries(self.allBreweries());
+    });
 
     function Brewery(dataObj) {
         this.name = dataObj.name;
@@ -157,7 +232,17 @@ var ViewModel = function () {
 
         this.marker = null;
     }
+
+
 };
+
+
+
+
+
+
+
+
 
 ko.applyBindings(new ViewModel());
 
