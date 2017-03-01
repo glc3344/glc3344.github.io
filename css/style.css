@@ -35,7 +35,18 @@ input[type="search"] {
     height: 40px;
 }
 
-#contentH3 {
+a:link {
+    color: black;
+    font-weight: bold;
+    font-size: 16px;
     padding: 0;
-    margin-bottom: 3px;
+}
+
+a:visited {
+    color: black;
+}
+
+#yelp-rating {
+    padding-left: 10px;
+    height: 100%;
 }

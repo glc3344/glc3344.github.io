@@ -96,7 +96,11 @@ var ViewModel = function () {
         // ON CLICK EVENT LISTENER
         brewery.marker.addListener('click', function () {
             infowindow.open(map, brewery.marker);
-            infowindow.setContent('<h3 id="contentH3">' + brewery.name + '</h3>' + brewery.address);
+            infowindow.setContent('<a id="yelp-url">' + brewery.name + '</a>' +
+                                    '<p>' + brewery.address + '</p>' +
+                                    'Yelp Rating' + '<img id="yelp-rating">' +
+                                    '<p id="yelp-snippet">' + '</p>'
+                                );
             self.googleMap.panTo(brewery.latLng);
             self.getYelpData(brewery);
             // Stop bounce on next click
@@ -153,9 +157,7 @@ var ViewModel = function () {
     };
 
 
-
-
-    self.getYelpData = function(brewery) {
+    self.getYelpData = function (brewery) {
         // Uses the oauth-signature package installed with bower per https://github.com/bettiolo/oauth-signature-js
 
         // Use the GET method for the request
@@ -166,10 +168,10 @@ var ViewModel = function () {
 
         // nonce generator
         // function credit of: https://blog.nraboy.com/2015/03/create-a-random-nonce-string-using-javascript/
-        var nonce = function(length) {
+        var nonce = function (length) {
             var text = "";
             var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
-            for(var i = 0; i < length; i++) {
+            for (var i = 0; i < length; i++) {
                 text += possible.charAt(Math.floor(Math.random() * possible.length));
             }
             return text;
@@ -185,7 +187,7 @@ var ViewModel = function () {
             oauth_version: '1.0',
             callback: 'cb',
             term: brewery.name,
-            location: 'Connecticut',
+            location: brewery.address,
             limit: 1
         };
 
@@ -205,12 +207,13 @@ var ViewModel = function () {
             data: parameters,
             cache: true,
             dataType: 'jsonp',
-            success: function(response) {
+            success: function (response) {
                 // Update the infoWindow to display the yelp rating image
-                $('#yelp').attr("src", response.businesses[0].rating_img_url);
+                $('#yelp-rating').attr("src", response.businesses[0].rating_img_url);
+                $('#yelp-snippet').html(response.businesses[0].snippet_text);
                 $('#yelp-url').attr("href", response.businesses[0].url);
             },
-            error: function() {
+            error: function () {
                 $('#text').html('Data could not be retrieved from yelp.');
             }
         };
@@ -220,7 +223,7 @@ var ViewModel = function () {
     };
 
     // Add the listener for loading the page
-    google.maps.event.addDomListener(window, 'load', function() {
+    google.maps.event.addDomListener(window, 'load', function () {
         self.allBreweries();
         self.showInfo();
         self.visibleBreweries(self.allBreweries());
@@ -235,13 +238,6 @@ var ViewModel = function () {
 
 
 };
-
-
-
-
-
-
-
 
 
 ko.applyBindings(new ViewModel());
