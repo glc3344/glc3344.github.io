@@ -1,6 +1,6 @@
 $(function() {
 
-    $('#sidebar').hide(0).slideToggle(1800);
+    $('#sidebar').hide(0).show(1500);
 
 });
 
