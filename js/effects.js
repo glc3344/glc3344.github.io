@@ -1,8 +1,8 @@
+$(function() {
 
-$('#sidebar').hide(0).slideDown(2250);
+    $('#sidebar').hide(0).slideToggle(1800);
 
-
-
+});
 
 
 
