@@ -15,8 +15,7 @@
            data-bind="textInput: searchBox, event: {keyup: filterMarkers}">
 
     <ul data-bind="foreach: visibleBreweries">
-        <li id="brewName" data-bind="text: name, click: $parent.showInfo" style="font-weight: bold"></li>
-        <li data-bind="text: address, click: $parent.showInfo"></li>
+        <li id="brewName" data-bind="html: name + address, click: $parent.showInfo" style="font-weight: bold"></li>
         <br>
     </ul>
 
@@ -31,7 +30,6 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/knockout/3.3.0/knockout-min.js"></script>
 <script type='text/javascript' src='js/app.js'></script>
-
 
 
 </body>

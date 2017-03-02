@@ -1,6 +1,6 @@
 "use strict";
 
-// GLOBAL INFOWINDOW
+// GLOBAL
 var infowindow = new google.maps.InfoWindow();
 var currentMarker = null;
 
@@ -11,39 +11,49 @@ var currentMarker = null;
 
 var breweries = [
     {
-        name: 'Black Hog Brewing Co',
+        name: 'Black Hog Brewing Co' + " \n ",
         address: '9A, 115 Hurley Rd, Oxford, CT 06478',
         latLng: {lat: 41.476293, lng: -73.151555}
     },
     {
-        name: 'New England Brewing Company',
+        name: 'New England Brewing Company' + " \n ",
         address: '175 Amity Rd, Woodbridge, CT 06525',
         latLng: {lat: 41.339608, lng: -72.980850}
     },
     {
-        name: 'OEC Brewing',
+        name: 'OEC Brewing' + " \n ",
         address: '7 Fox Hollow Road, Oxford, CT 06478',
         latLng: {lat: 41.473007, lng: -73.121106}
     },
     {
-        name: 'Shebeen Brewing Company',
+        name: 'Shebeen Brewing Company' + " \n ",
         address: '1 Wolcott Rd, Wolcott, CT 06716',
         latLng: {lat: 41.571034, lng: -73.001884}
     },
     {
-        name: 'No Worries Brewing Company',
+        name: 'No Worries Brewing Company' + " \n ",
         address: '2520 State St, Hamden, CT 06517',
         latLng: {lat: 41.349989, lng: -72.892873}
     },
     {
-        name: 'Two Roads Brewing Company',
+        name: 'Two Roads Brewing Company' + " \n ",
         address: '1700 Stratford Ave, Stratford, CT 06615',
         latLng: {lat: 41.186259, lng: -73.142184}
     },
     {
-        name: 'SBC Brewery & Restaurant',
+        name: 'SBC Brewery & Restaurant' + " \n ",
         address: '33 New Haven Ave, Milford, CT 06460',
         latLng: {lat: 41.222610, lng: -73.055755}
+    },
+    {
+        name: 'Veracious Brewing Company' + " \n ",
+        address: '246 Main St, Monroe, CT 06468',
+        latLng: {lat: 41.310499, lng: -73.256018}
+    },
+    {
+        name: 'Thomas Hooker Brewery' + " \n ",
+        address: '16 Tobey Rd, Bloomfield, CT 06002',
+        latLng: {lat: 41.809184, lng: -72.710753}
     }
 ];
 
@@ -76,11 +86,14 @@ var ViewModel = function () {
         }]
     });
 
+
     // BREWERIES
     self.allBreweries = ko.observableArray([]);
+
     breweries.forEach(function (brewery) {
         self.allBreweries.push(brewery);
     });
+
 
     // MARKERS
     self.allBreweries().forEach(function (brewery) {
@@ -92,25 +105,36 @@ var ViewModel = function () {
 
         brewery.marker = new google.maps.Marker(markerOptions);
 
-
         // ON CLICK EVENT LISTENER
         brewery.marker.addListener('click', function () {
+
+
             infowindow.open(map, brewery.marker);
             infowindow.setContent('<a id="yelp-url">' + brewery.name + '</a>' +
-                                    '<p>' + brewery.address + '</p>' +
-                                    'Yelp Rating' + '<img id="yelp-rating">' +
-                                    '<p id="yelp-snippet">' + '</p>'
-                                );
+                '<p>' + brewery.address + '</p>' +
+                '<p>' + 'Yelp Rating:' + '</p>' + '<img id="yelp-rating">' +
+                '<p id="yelp-snippet">' + '</p>'
+            );
+
             self.googleMap.panTo(brewery.latLng);
             self.getYelpData(brewery);
+
             // Stop bounce on next click
             if (currentMarker) currentMarker.setAnimation(google.maps.Animation.NONE);
             currentMarker = brewery.marker;
             brewery.marker.setAnimation(google.maps.Animation.BOUNCE);
         });
 
-    });
+        google.maps.event.addListener(infowindow, "closeclick", function () {
+            brewery.marker.setAnimation(google.maps.Animation.NONE);
+        });
 
+        google.maps.event.addListener(self.googleMap, "click", function () {
+            infowindow.close();
+            brewery.marker.setAnimation(google.maps.Animation.NONE);
+        });
+
+    });
 
     // Activate the marker when the user clicks list item
     self.showInfo = function (brewery) {
@@ -119,6 +143,7 @@ var ViewModel = function () {
 
     // define filter array
     self.visibleBreweries = ko.observableArray([]);
+
 
     // Setup array unfiltered initially
     self.allBreweries().forEach(function (brewery) {
@@ -156,6 +181,10 @@ var ViewModel = function () {
         });
     };
 
+
+//////////////////
+// YELP, OAUTH  //
+//////////////////
 
     self.getYelpData = function (brewery) {
         // Uses the oauth-signature package installed with bower per https://github.com/bettiolo/oauth-signature-js
@@ -195,13 +224,12 @@ var ViewModel = function () {
         var consumerSecret = 'Eg64L8QZK_txeNxDs-RJ7SfVzpM';
         var tokenSecret = 'cuHdcWEfG71oBHQbWpue4QaeASY';
 
-        // generates a RFC 3986 encoded, BASE64 encoded HMAC-SHA1 hash
         var signature = oauthSignature.generate(httpMethod, yelpURL, parameters, consumerSecret, tokenSecret);
 
         // Add signature to list of parameters
         parameters.oauth_signature = signature;
 
-        // Set up the ajax settings
+        // Set up ajax settings
         var ajaxSettings = {
             url: yelpURL,
             data: parameters,
@@ -222,12 +250,6 @@ var ViewModel = function () {
         $.ajax(ajaxSettings);
     };
 
-    // Add the listener for loading the page
-    google.maps.event.addDomListener(window, 'load', function () {
-        self.allBreweries();
-        self.showInfo();
-        self.visibleBreweries(self.allBreweries());
-    });
 
     function Brewery(dataObj) {
         this.name = dataObj.name;

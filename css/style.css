@@ -1,23 +1,28 @@
 html, body {
     height: 100%;
+    width: 100%;
     margin: 0;
     padding: 0;
 }
 
 #map {
-    height: 100%;
+    height:100%;
 }
 
 #sidebar {
     color: #FFFFFF;
     font-family: Arial, serif;
     float: left;
-    width: 300px;
+    width: 305px;
     height: 100%;
     padding: 10px;
     background-color: #2D333C;
-    border-right: solid #454545;
-    border-right-width: 1px;
+    -moz-box-shadow: 0 0 8px 0 #454545;
+    -webkit-box-shadow: 0 0 8px 0 #454545;
+    box-shadow: 3px 0 50px 0 #191919;
+    position: relative;
+    z-index: 10;
+    padding-right: 30px;
 }
 
 #searchBar {
@@ -30,6 +35,7 @@ html, body {
 }
 
 input[type="search"] {
+    -webkit-appearance: none;
     padding-left: 10px;
     font-size: 15px;
     height: 40px;
@@ -38,15 +44,35 @@ input[type="search"] {
 a:link {
     color: black;
     font-weight: bold;
-    font-size: 16px;
+    font-size: 18px;
     padding: 0;
+
 }
 
 a:visited {
     color: black;
 }
 
-#yelp-rating {
-    padding-left: 10px;
-    height: 100%;
+li:hover {
+    color: steelblue;
 }
+
+#yelp-rating {
+    height: 100%;
+
+}
+
+#yelp-snippet, p {
+    font-size: 16px;
+}
+
+div {
+    padding-top: 3px;
+    padding-left: 3px;
+}
+
+#brewName {
+    cursor: default;
+}
+
+
