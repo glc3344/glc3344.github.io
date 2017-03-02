@@ -3,6 +3,8 @@
 <head>
     <title>Neighborhood Map</title>
 
+    <link rel="stylesheet" type="text/css" href="css/normalize.css">
+    <link href="https://fonts.googleapis.com/css?family=Raleway:400,900" rel="stylesheet">
     <link rel='stylesheet' type='text/css' href='css/style.css'>
 
 
@@ -10,12 +12,12 @@
 <body>
 
 <div id="sidebar">
-    <h1 style="text-align: center">Breweries:</h1>
-    <input type="search" id="searchBar" placeholder="Filter Breweries..."
+    <h1 style="text-align: center"><span id="brewlogo">CT Brewery Trail</span></h1>
+    <input type="search" id="searchBar" placeholder="Filter Breweries...ESC to cancel"
            data-bind="textInput: searchBox, event: {keyup: filterMarkers}">
 
     <ul data-bind="foreach: visibleBreweries">
-        <li id="brewName" data-bind="html: name + address, click: $parent.showInfo" style="font-weight: bold"></li>
+        <li id="brewName" data-bind="html: name + address, click: $parent.showInfo"></li>
         <br>
     </ul>
 
@@ -24,13 +26,20 @@
 
 <div id="map"></div>
 
-
-<script src="bower_components/oauth-signature/dist/oauth-signature.js"></script>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/knockout/3.3.0/knockout-min.js"></script>
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBEnxHk7zf3eRZB0UfYfl9fuiY_TJbYiu8"></script>
+<script
+        src="https://code.jquery.com/jquery-3.1.1.min.js"
+        integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
+        crossorigin="anonymous">
+
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/knockout/3.3.0/knockout-min.js"></script>
+<script src="bower_components/oauth-signature/dist/oauth-signature.js"></script>
+
+
 
 <script type='text/javascript' src='js/app.js'></script>
+<script type="text/javascript" src="js/effects.js"></script>
 
 
 </body>

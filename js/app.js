@@ -4,6 +4,7 @@
 var infowindow = new google.maps.InfoWindow();
 var currentMarker = null;
 
+
 ///////////////////
 //   BREWERIES   //
 ///////////////////
@@ -11,47 +12,47 @@ var currentMarker = null;
 
 var breweries = [
     {
-        name: 'Black Hog Brewing Co' + " \n ",
+        name: 'Black Hog Brewing Co' + '<br>',
         address: '9A, 115 Hurley Rd, Oxford, CT 06478',
         latLng: {lat: 41.476293, lng: -73.151555}
     },
     {
-        name: 'New England Brewing Company' + " \n ",
+        name: 'New England Brewing Company' + '<br>',
         address: '175 Amity Rd, Woodbridge, CT 06525',
         latLng: {lat: 41.339608, lng: -72.980850}
     },
     {
-        name: 'OEC Brewing' + " \n ",
+        name: 'OEC Brewing' + '<br>',
         address: '7 Fox Hollow Road, Oxford, CT 06478',
         latLng: {lat: 41.473007, lng: -73.121106}
     },
     {
-        name: 'Shebeen Brewing Company' + " \n ",
+        name: 'Shebeen Brewing Company' + '<br>',
         address: '1 Wolcott Rd, Wolcott, CT 06716',
         latLng: {lat: 41.571034, lng: -73.001884}
     },
     {
-        name: 'No Worries Brewing Company' + " \n ",
+        name: 'No Worries Brewing Company' + '<br>',
         address: '2520 State St, Hamden, CT 06517',
         latLng: {lat: 41.349989, lng: -72.892873}
     },
     {
-        name: 'Two Roads Brewing Company' + " \n ",
+        name: 'Two Roads Brewing Company' + '<br>',
         address: '1700 Stratford Ave, Stratford, CT 06615',
         latLng: {lat: 41.186259, lng: -73.142184}
     },
     {
-        name: 'SBC Brewery & Restaurant' + " \n ",
+        name: 'SBC Brewery & Restaurant' + '<br>',
         address: '33 New Haven Ave, Milford, CT 06460',
         latLng: {lat: 41.222610, lng: -73.055755}
     },
     {
-        name: 'Veracious Brewing Company' + " \n ",
+        name: 'Veracious Brewing Company' + '<br>',
         address: '246 Main St, Monroe, CT 06468',
         latLng: {lat: 41.310499, lng: -73.256018}
     },
     {
-        name: 'Thomas Hooker Brewery' + " \n ",
+        name: 'Thomas Hooker Brewery' + '<br>',
         address: '16 Tobey Rd, Bloomfield, CT 06002',
         latLng: {lat: 41.809184, lng: -72.710753}
     }

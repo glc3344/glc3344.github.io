@@ -3,15 +3,20 @@ html, body {
     width: 100%;
     margin: 0;
     padding: 0;
+    font-family: 'Raleway', sans-serif;
 }
 
 #map {
+    width:100%;
     height:100%;
+    position: absolute;
+    top: 0px;
+    left: 0px;
 }
 
 #sidebar {
     color: #FFFFFF;
-    font-family: Arial, serif;
+    font-family: 'Raleway', sans-serif;
     float: left;
     width: 305px;
     height: 100%;
@@ -28,10 +33,11 @@ html, body {
 #searchBar {
     margin-bottom: 30px;
     margin-top: 10px;
-    margin-left: 25px;
+    margin-left: 32px;
     margin-right: auto;
     width: 80%;
     border-radius: 5px;
+
 }
 
 input[type="search"] {
@@ -39,13 +45,15 @@ input[type="search"] {
     padding-left: 10px;
     font-size: 15px;
     height: 40px;
+    font-family: 'Raleway', sans-serif;
 }
 
 a:link {
     color: black;
-    font-weight: bold;
+    font-weight: 900;
     font-size: 18px;
     padding: 0;
+    font-family: 'Raleway', sans-serif;
 
 }
 
@@ -75,4 +83,17 @@ div {
     cursor: default;
 }
 
+input[type="search"]::-webkit-search-decoration,
+input[type="search"]::-webkit-search-cancel-button,
+input[type="search"]::-webkit-search-results-button,
+input[type="search"]::-webkit-search-results-decoration {
+    display: none;
+}
+
+#brewlogo {
+    font-size: 40px;
+    font-family: 'Raleway', sans-serif;
+
+
+}
 
