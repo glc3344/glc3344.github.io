@@ -1,5 +1,5 @@
 
-$('#sidebar').hide(0).slideDown(2500);
+$('#sidebar').hide(0).slideDown(2250);
 
 
 
