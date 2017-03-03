@@ -1,9 +1,7 @@
 "use strict";
 
 // GLOBAL
-var infowindow = new google.maps.InfoWindow({
-    pixelOffset: new google.maps.Size(0,20)
-});
+var infowindow = new google.maps.InfoWindow;
 var currentMarker = null;
 
 
@@ -128,6 +126,7 @@ var ViewModel = function () {
             );
 
             self.googleMap.panTo(brewery.latLng);
+            self.googleMap.panBy(0, -200);
             self.getYelpData(brewery);
 
             // Stop bounce on next click
