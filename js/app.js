@@ -95,19 +95,21 @@ var ViewModel = function () {
         self.allBreweries.push(brewery);
     });
 
+    // CUSTOM MARKER ICON
+    var beerIcon = {
+        url: "images/beer.svg",
+        scaledSize: new google.maps.Size(70, 60)
+    };
+
 
     // MARKERS
     self.allBreweries().forEach(function (brewery) {
         var markerOptions = {
             map: self.googleMap,
             position: brewery.latLng,
-            animation: google.maps.Animation.DROP,
-            icon: {
-                url: "images/beer.svg",
-                optimized: true,
-                scaledSize: new google.maps.Size(50, 50)
-
-            }
+            icon: beerIcon,
+            optimized: false,
+            animation: google.maps.Animation.DROP
         };
 
         brewery.marker = new google.maps.Marker(markerOptions);
