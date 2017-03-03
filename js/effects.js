@@ -15,7 +15,7 @@ var main = function () {
         $('#sidebar').hide(0).slideToggle(1500);
 
         $('#hideSide').on('click', function () {
-            $('#sidebar').slideToggle(1000)
+            $('#sidebar').slideToggle(500)
         });
     }
 
