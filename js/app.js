@@ -101,7 +101,13 @@ var ViewModel = function () {
         var markerOptions = {
             map: self.googleMap,
             position: brewery.latLng,
-            animation: google.maps.Animation.DROP
+            animation: google.maps.Animation.DROP,
+            icon: {
+                url: "images/beer.svg",
+                optimized: true,
+                scaledSize: new google.maps.Size(50, 50)
+
+            }
         };
 
         brewery.marker = new google.maps.Marker(markerOptions);
