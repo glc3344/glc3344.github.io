@@ -78,7 +78,7 @@ var ViewModel = function () {
 
     // GOOGLE MAPS OBJECT
     self.googleMap = new google.maps.Map(document.getElementById('map'), {
-        center: {lat: 41.348209, lng: -73.078189},
+        center: {lat: 41.472885, lng: -73.121229},
         zoom: 10,
         styles: [{"stylers": [{"hue": "#ff1a00"}, {"invert_lightness": true}, {"saturation": -100}, {"lightness": 33}, {"gamma": 0.6}]}, {
             "featureType": "water",
