@@ -2,7 +2,7 @@
 
 // GLOBAL
 var infowindow = new google.maps.InfoWindow({
-    pixelOffset: new google.maps.Size(0,20)
+    pixelOffset: new google.maps.Size(0,10)
 });
 var currentMarker = null;
 
