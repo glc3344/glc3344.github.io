@@ -131,3 +131,7 @@ p#hideSide.btn:hover{
     font-size: 20px;
     color: steelblue;
 }
+
+a#yelp-url {
+    text-decoration: underline;
+}
