@@ -1,7 +1,9 @@
 "use strict";
 
 // GLOBAL
-var infowindow = new google.maps.InfoWindow();
+var infowindow = new google.maps.InfoWindow({
+    pixelOffset: new google.maps.Size(0,20)
+});
 var currentMarker = null;
 
 
@@ -142,6 +144,8 @@ var ViewModel = function () {
             infowindow.close();
             brewery.marker.setAnimation(google.maps.Animation.NONE);
         });
+
+
 
     });
 
