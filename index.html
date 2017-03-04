@@ -2,8 +2,8 @@
 <html>
 <head>
     <title>Neighborhood Map</title>
-    <meta charset="utf-8" />
-    <meta http-equiv="Content-type" content="text/html; charset=utf-8" />
+    <meta charset="utf-8"/>
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" type="text/css" href="./bower_components/normalize.css/normalize.css">
 
@@ -19,7 +19,7 @@
 </head>
 <body>
 
-    <div><p id="hideSide" class="btn">Hide/Show Menu</p></div>
+<div><p id="hideSide" class="btn">Hide/Show Menu</p></div>
 <div id="sidebar" style="overflow-y: scroll">
 
 
@@ -31,28 +31,28 @@
         <li id="brewName" data-bind="html: name + address, click: $parent.showInfo"></li>
         <br>
     </ul>
-    </div>
+</div>
 
 
 
+<div id="map"></div>
+
+<!--<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBEnxHk7zf3eRZB0UfYfl9fuiY_TJbYiu8"></script>-->
+<script
+        src="https://code.jquery.com/jquery-3.1.1.min.js"
+        integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
+        crossorigin="anonymous">
+
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/knockout/3.3.0/knockout-min.js"></script>
+<script src="bower_components/oauth-signature/dist/oauth-signature.js"></script>
 
 
+<script type="text/javascript" src="js/effects.js"></script>
+<script type='text/javascript' src='js/app.js'></script>
 
-    <div id="map"></div>
-
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBEnxHk7zf3eRZB0UfYfl9fuiY_TJbYiu8"></script>
-    <script
-            src="https://code.jquery.com/jquery-3.1.1.min.js"
-            integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
-            crossorigin="anonymous">
-
-    </script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/knockout/3.3.0/knockout-min.js"></script>
-    <script src="bower_components/oauth-signature/dist/oauth-signature.js"></script>
-
-
-    <script type="text/javascript" src="js/effects.js"></script>
-    <script type='text/javascript' src='js/app.js'></script>
+<script async
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBEnxHk7zf3eRZB0UfYfl9fuiY_TJbYiu8&callback=init"></script>
 
 
 </body>

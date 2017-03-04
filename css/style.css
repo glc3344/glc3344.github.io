@@ -135,3 +135,7 @@ p#hideSide.btn:hover{
 a#yelp-url {
     text-decoration: underline;
 }
+
+#yelp-image{
+    float: right;
+}
