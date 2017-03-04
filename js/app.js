@@ -205,7 +205,6 @@ var ViewModel = function () {
 
             self.googleMap.panTo(brewery.latLng);
             self.googleMap.panBy(0, -200);
-            map.fitBounds(viewport);
             self.getYelpData(brewery);
 
             // Stop bounce on next click
