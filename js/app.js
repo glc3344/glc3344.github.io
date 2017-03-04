@@ -55,18 +55,94 @@ var breweries = [
         name: 'Thomas Hooker Brewery' + '<br>',
         address: '16 Tobey Rd, Bloomfield, CT 06002',
         latLng: {lat: 41.809184, lng: -72.710753}
+    },
+    {
+        name: 'Back East Brewing Company' + '<br>',
+        address: '1296 Blue Hills Ave, Bloomfield, CT 06002',
+        latLng: {lat: 41.855090, lng: -72.705105}
+    },
+    {
+        name: 'Brass Works Brewing Co.' + '<br>',
+        address: '2066 Thomaston Ave, Waterbury, CT 06704',
+        latLng: {lat: 41.597526, lng: -73.057665}
+    },
+    {
+        name: 'Half Full Brewery' + '<br>',
+        address: '43 Homestead Ave, Stamford, CT 06902',
+        latLng: {lat: 41.039497, lng: -73.549929}
+    },
+    {
+        name: 'Cold Creek Brewery' + '<br>',
+        address: '6 Industrial Dr, Ellington, CT 06029',
+        latLng: {lat: 41.920540, lng: -72.453881}
+    },
+    {
+        name: 'Cottrell Brewing Company' + '<br>',
+        address: '100 Mechanic St #22, Pawcatuck, CT 06379',
+        latLng: {lat: 41.369764, lng: -71.833548}
+    },
+    {
+        name: 'Hanging Hills Brewing Company' + '<br>',
+        address: '150 Ledyard St, Hartford, CT 06114',
+        latLng: {lat: 41.744485, lng: -72.669612}
+    },
+    {
+        name: 'Powder Hollow Brewery' + '<br>',
+        address: '504 Hazard Ave, Enfield, CT 06082',
+        latLng: {lat: 41.983913, lng: -72.519547}
+    },
+    {
+        name: 'Overshores Brewing Co' + '<br>',
+        address: '250 Bradley St, East Haven, CT 06512',
+        latLng: {lat: 41.288994, lng: -72.874348}
+    },
+    {
+        name: 'Relic Brewing' + '<br>',
+        address: '95 Whiting StPlainville, CT 06062',
+        latLng: {lat: 41.665613, lng: -72.867477}
+    },
+    {
+        name: 'Still Hill Brewery' + '<br>',
+        address: '1275 Cromwell Ave, Rocky Hill, CT 06067',
+        latLng: {lat: 41.635728, lng: -72.676785}
+    },
+    {
+        name: 'Steady Habit Brewing Company' + '<br>',
+        address: '95 Bridge Rd, Haddam, CT 06438',
+        latLng: {lat: 41.448331, lng: -72.472449}
+    },
+    {
+        name: 'Stony Creek Brewery' + '<br>',
+        address: '5 Indian Neck Ave, Branford, CT 06405',
+        latLng: {lat: 41.274843, lng: -72.813437}
+    },
+    {
+        name: 'Stubborn Beauty Brewing' + '<br>',
+        address: 'Remington Rand, 180 Johnson St, Middletown, CT 06457',
+        latLng: {lat: 41.572053, lng: -72.657754}
+    },
+    {
+        name: "The Beer’d Brewing Company" + '<br>',
+        address: '22 Bayview Ave #15, Stonington, CT 06378',
+        latLng: {lat: 41.337990, lng: -71.898455}
+    },
+    {
+        name: 'Thimble Island Brewing Company' + '<br>',
+        address: '16 Business Park Dr, Branford, CT 06405',
+        latLng: {lat: 41.296726, lng: -72.771561}
+    },
+    {
+        name: 'Tidal River Brewing' + '<br>',
+        address: '15 Cheryl Dr, Canton, CT 06019',
+        latLng: {lat: 41.824311, lng: -72.878519}
+    },
+    {
+        name: 'Top Shelf Brewing Company' + '<br>',
+        address: '422 N Main St, Manchester, CT 06042',
+        latLng: {lat: 41.795558, lng: -72.529484}
     }
+
 ];
-
-
-var Brewery = function (data) {
-    "use strict";
-    this.name = ko.observable(data.name);
-    this.address = ko.observable(data.address);
-    this.latLng = ko.observable(data.latLng);
-    this.id = ko.observable(data.id);
-    this.marker = ko.observable();
-};
 
 
 //////////////////
@@ -78,7 +154,7 @@ var ViewModel = function () {
 
     // GOOGLE MAPS OBJECT
     self.googleMap = new google.maps.Map(document.getElementById('map'), {
-        center: {lat: 41.472885, lng: -73.121229},
+        center: {lat: 41.536987, lng: -72.865966},
         zoom: 10,
         styles: [{"stylers": [{"hue": "#ff1a00"}, {"invert_lightness": true}, {"saturation": -100}, {"lightness": 33}, {"gamma": 0.6}]}, {
             "featureType": "water",
@@ -120,9 +196,11 @@ var ViewModel = function () {
 
             infowindow.open(map, brewery.marker);
             infowindow.setContent('<a id="yelp-url">' + brewery.name + '</a>' +
+                '<img id="yelp-image" style="float: right; padding: 10px;" >' +
                 '<p>' + brewery.address + '</p>' +
                 '<p>' + 'Yelp Rating:' + '</p>' + '<img id="yelp-rating">' +
-                '<p id="yelp-snippet">' + '</p>'
+                '<p id="yelp-snippet">' + '</p>' +
+                '<h3 id="text">' + '</h3>'
             );
 
             self.googleMap.panTo(brewery.latLng);
@@ -135,25 +213,26 @@ var ViewModel = function () {
             brewery.marker.setAnimation(google.maps.Animation.BOUNCE);
         });
 
+        // Stop bounce on closing of infowindow
         google.maps.event.addListener(infowindow, "closeclick", function () {
             brewery.marker.setAnimation(google.maps.Animation.NONE);
         });
 
+        // Stop bounce when clicking anywhere on the map
         google.maps.event.addListener(self.googleMap, "click", function () {
             infowindow.close();
             brewery.marker.setAnimation(google.maps.Animation.NONE);
         });
 
 
-
     });
 
-    // Activate the marker when the user clicks list item
+    // Activate the marker when the user clicks brewery in the sidebar
     self.showInfo = function (brewery) {
         google.maps.event.trigger(brewery.marker, 'click');
     };
 
-    // define filter array
+    // Define filter array
     self.visibleBreweries = ko.observableArray([]);
 
 
@@ -174,15 +253,11 @@ var ViewModel = function () {
         self.allBreweries().forEach(function (brewery) {
             brewery.marker.setVisible(false);
 
-            if (brewery.name.toLowerCase().indexOf(searchInput) !== -1) {
+            if (brewery.name.toLowerCase().indexOf(searchInput) !== -1 || brewery.address.toLowerCase().indexOf(searchInput) !== -1) {
                 self.visibleBreweries.push(brewery);
-                brewery.marker.setAnimation(google.maps.Animation.BOUNCE);
+                brewery.marker.setAnimation(google.maps.Animation.DROP);
             }
-            else if (brewery.address.toLowerCase().indexOf(searchInput) !== -1) {
-                self.visibleBreweries.push(brewery);
-                brewery.marker.setAnimation(google.maps.Animation.BOUNCE);
-            }
-            if (searchInput === '') {
+            else {
                 brewery.marker.setAnimation(google.maps.Animation.DROP);
             }
 
@@ -198,13 +273,16 @@ var ViewModel = function () {
 // YELP, OAUTH  //
 //////////////////
 
+    // Struggled with this section, needed help from
+    // https://github.com/ToniRib/neighborhood-map/blob/master/src/js/app.js
+
     self.getYelpData = function (brewery) {
         // Uses the oauth-signature package installed with bower per https://github.com/bettiolo/oauth-signature-js
 
         // Use the GET method for the request
         var httpMethod = 'GET';
 
-        // Yelp API request url
+        // Yelp API request url HTTPS
         var yelpURL = 'https://api.yelp.com/v2/search/';
 
         // nonce generator
@@ -248,17 +326,18 @@ var ViewModel = function () {
             cache: true,
             dataType: 'jsonp',
             success: function (response) {
-                // Update the infoWindow to display the yelp rating image
+                // Update the infoWindow to display yelp info
                 $('#yelp-rating').attr("src", response.businesses[0].rating_img_url);
                 $('#yelp-snippet').html(response.businesses[0].snippet_text);
                 $('#yelp-url').attr("href", response.businesses[0].url);
+                $('#yelp-image').attr("src", response.businesses[0].image_url);
             },
             error: function () {
-                $('#text').html('Data could not be retrieved from yelp.');
+                $('#text').html('Sorry, Yelp info could not be retrieved.');
             }
         };
 
-        // Send off the ajaz request to Yelp
+        // Ajax request to Yelp
         $.ajax(ajaxSettings);
     };
 
