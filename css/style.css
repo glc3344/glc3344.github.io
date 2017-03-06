@@ -6,7 +6,7 @@ html, body {
     font-family: 'Raleway', sans-serif;
 }
 
-.container-fluid{
+.container-fluid {
     padding: 0;
     margin: 0;
 }
@@ -18,7 +18,6 @@ html, body {
     top: 0;
     left: 0;
 }
-
 
 #sidebar, #hideSide {
     margin-top: -15px;
@@ -76,7 +75,7 @@ li:hover {
 
 #yelp-rating {
     height: 100%;
-
+    margin-bottom: 5px;
 }
 
 #yelp-snippet, p {
@@ -93,7 +92,6 @@ div {
     font-family: 'Raleway', sans-serif;
     font-weight: bold;
     font-size: 15px;
-
 
 }
 
@@ -123,11 +121,11 @@ input[type="search"]::-webkit-search-results-decoration {
     background: #363d47
 }
 
-p#hideSide.btn{
+p#hideSide.btn {
     font-size: 20px;
 }
 
-p#hideSide.btn:hover{
+p#hideSide.btn:hover {
     font-size: 20px;
     color: steelblue;
 }
@@ -136,6 +134,10 @@ a#yelp-url {
     text-decoration: underline;
 }
 
-#yelp-image{
+#yelp-image {
     float: right;
+    padding: 5px;
+    border-radius: 3px;
+
+
 }

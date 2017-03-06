@@ -339,8 +339,8 @@ var init = function () {
                     infowindow.setContent('<a href=' + response.businesses[0].url + '>' + brewery.name + '</a>' +
                         '<img src=' + response.businesses[0].image_url + ' + alt="rating" + id="yelp-image">' +
                         '<h5>' + brewery.address + '</h5>' +
-                        '<h5>' + "Yelp Rating" + '</h5>' +
-                        '<img src=' + response.businesses[0].rating_img_url + ' + alt="rating">' +
+                        '<h5>' + "Yelp Rating:" + '</h5>' +
+                        '<img src=' + response.businesses[0].rating_img_url + ' + alt="rating" + id="yelp-rating">' +
                         '<p>' + response.businesses[0].snippet_text + '</p>'
 
 
