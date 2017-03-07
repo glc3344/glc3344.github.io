@@ -1,10 +1,14 @@
+// Google Map Error Handling
+function googleMapError() {
+    alert("Sorry - Google Maps failed to load.  Please try again.");
+}
+
 var init = function () {
     "use strict";
 
 // GLOBAL
     var infowindow = new google.maps.InfoWindow;
     var currentMarker = null;
-
 
 ///////////////////
 //   BREWERIES   //
@@ -197,13 +201,6 @@ var init = function () {
 
 
                 infowindow.open(map, brewery.marker);
-                // infowindow.setContent('<a id="yelp-url">' + brewery.name + '</a>' +
-                //     '<img id="yelp-image" style="float: right; padding: 10px;" >' +
-                //     '<p>' + brewery.address + '</p>' +
-                //     '<p>' + 'Yelp Rating:' + '</p>' + '<img id="yelp-rating">' +
-                //     '<p id="yelp-snippet">' + '</p>' +
-                //     '<h3 id="text">' + '</h3>'
-                // );
 
                 self.googleMap.panTo(brewery.latLng);
                 self.googleMap.panBy(0, -200);
@@ -260,6 +257,7 @@ var init = function () {
                     brewery.marker.setAnimation(google.maps.Animation.DROP);
                 }
                 else {
+                    infowindow.close();
                     brewery.marker.setAnimation(google.maps.Animation.DROP);
                 }
 
@@ -328,30 +326,17 @@ var init = function () {
                 cache: true,
                 dataType: 'jsonp',
                 success: function (response) {
-                    // Update the infoWindow to display yelp info
-                    // $('#yelp-rating').attr("src", response.businesses[0].rating_img_url);
-                    // $('#yelp-snippet').html(response.businesses[0].snippet_text);
-                    // $('#yelp-url').attr("href", response.businesses[0].url);
-                    // $('#yelp-image').attr("src", response.businesses[0].image_url);
-
-
-
                     infowindow.setContent('<a href=' + response.businesses[0].url + '>' + brewery.name + '</a>' +
                         '<img src=' + response.businesses[0].image_url + ' + alt="rating" + id="yelp-image">' +
                         '<h5>' + brewery.address + '</h5>' +
                         '<h5>' + "Yelp Rating:" + '</h5>' +
                         '<img src=' + response.businesses[0].rating_img_url + ' + alt="rating" + id="yelp-rating">' +
                         '<p>' + response.businesses[0].snippet_text + '</p>'
-
-
-
-
-
                     );
-
                 },
                 error: function () {
-                    $('#text').html('Sorry, Yelp info could not be retrieved.');
+                    infowindow.setContent('<h4>' + "Sorry, cannot retrieve yelp data at this moment." + '</h4>'
+                    );
                 }
             };
 
